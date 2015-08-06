@@ -19,9 +19,9 @@
         monitoring: no
         assign_public_ip: no
         instance_tags:
-          Name: "{{automation_name}}_{{tested_version}}_{{automation_os}}_single_node" 
+          Name: "{{automation_name}}_{{tested_version|replace(".","_")}}_{{automation_os}}_single_node" 
         count_tag:
-          Name: "{{automation_name}}_{{tested_version}}_{{automation_os}}_single_node" 
+          Name: "{{automation_name}}_{{tested_version|replace(".","_")}}_{{automation_os}}_single_node" 
         exact_count: 1
       register: ec2
     - name: Add new instance to host group

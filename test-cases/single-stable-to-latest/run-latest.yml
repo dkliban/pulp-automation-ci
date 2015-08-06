@@ -2,7 +2,7 @@
 # vim:ft=ansible:
 - name: Set package manager first
   hosts:
-    - "tag_Name_{{automation_name}}_{{tested_version}}_{{automation_os}}_single_stable_to_latest"
+    - "tag_Name_{{automation_name}}_{{tested_version|replace(".","_")}}_{{automation_os}}_single_stable_to_latest"
   roles:
     - set-package-manager
 
@@ -24,7 +24,7 @@
 
 - name: Update pulp
   hosts:
-    - "tag_Name_{{automation_name}}_{{tested_version}}_{{automation_os}}_single_stable_to_latest"
+    - "tag_Name_{{automation_name}}_{{tested_version|replace(".","_")}}_{{automation_os}}_single_stable_to_latest"
   pre_tasks:
     - name: remove previous repo file
       file: path=/etc/yum.repos.d/fedora-pulp.repo state=absent
@@ -33,7 +33,7 @@
       file: path=/etc/yum.repos.d/rhel-pulp.repo state=absent
       when: "ansible_distribution=='RedHat'"
   roles:
-    - { role: testing-repos-setup, my_tested_version: "{{tested_version}}", my_tested_branch: "{{tested_branch}}"}
+    - { role: testing-repos-setup, my_tested_version: "{{tested_version|replace(".","_")}}", my_tested_branch: "{{tested_branch}}"}
   post_tasks:
     - name: update all packages
       action: "{{package_manager}} name=* state=latest"
@@ -43,7 +43,7 @@
    
 - name: Cleanup pulp
   hosts:
-    - "tag_Name_{{automation_name}}_{{tested_version}}_{{automation_os}}_single_stable_to_latest"
+    - "tag_Name_{{automation_name}}_{{tested_version|replace(".","_")}}_{{automation_os}}_single_stable_to_latest"
   roles:
     - cleanup-pulp
 
