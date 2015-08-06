@@ -3,6 +3,10 @@
 - name: ebugggggg
   hosts: localhost
   tasks:
+    - debug: var=automation_name
+- name: ebugggggg
+  hosts: localhost
+  tasks:
     - debug: var=tested_version
 - name: ebugggggg2
   hosts: localhost
