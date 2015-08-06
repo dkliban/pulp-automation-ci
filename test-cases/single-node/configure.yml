@@ -1,17 +1,5 @@
 ---
 # vim:ft=ansible:
-- name: ebugggggg
-  hosts: localhost
-  tasks:
-    - debug: var=automation_name
-- name: ebugggggg
-  hosts: localhost
-  tasks:
-    - debug: var=tested_version
-- name: ebugggggg2
-  hosts: localhost
-  tasks:
-    - debug: var=automation_os
 - name: Configure node - install and enable pulp 
   hosts:
     - "tag_Name_{{automation_name}}_{{tested_version|replace('.','_')}}_{{automation_os}}_single_node"
