@@ -1,5 +1,9 @@
 ---
 # vim:ft=ansible:
+- name: ebugggggg
+    - debug: var=tested_version
+- name: ebugggggg2
+    - debug: var=automation_os
 - name: Configure node - install and enable pulp 
   hosts:
     - "tag_Name_{{automation_name}}_{{tested_version}}_{{automation_os}}_single_node"
