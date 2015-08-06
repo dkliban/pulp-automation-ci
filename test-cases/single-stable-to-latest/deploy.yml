@@ -14,7 +14,7 @@
         image: "{{ automation_ami }}"
         exact_count: 0
         count_tag:
-          Name: "{{automation_name}}_{{tested_version|replace(".","_")}}_{{automation_os}}_single_stable_to_latest" 
+          Name: "{{automation_name}}_{{tested_version|replace('.','_')}}_{{automation_os}}_single_stable_to_latest" 
     - name: Launch new ec2 single node stable-to-latest testing instance
       ec2:
         key_name: "{{ key_name }}"
@@ -26,9 +26,9 @@
         monitoring: no
         assign_public_ip: no
         instance_tags:
-          Name: "{{automation_name}}_{{tested_version|replace(".","_")}}_{{automation_os}}_single_stable_to_latest" 
+          Name: "{{automation_name}}_{{tested_version|replace('.','_')}}_{{automation_os}}_single_stable_to_latest" 
         count_tag:
-          Name: "{{automation_name}}_{{tested_version|replace(".","_")}}_{{automation_os}}_single_stable_to_latest" 
+          Name: "{{automation_name}}_{{tested_version|replace('.','_')}}_{{automation_os}}_single_stable_to_latest" 
         exact_count: 1
       register: ec2
     - name: Add new instance to host group
