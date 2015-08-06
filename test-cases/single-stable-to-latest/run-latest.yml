@@ -53,3 +53,4 @@
   tasks:
     - name: run all tests on single node
       command: "chdir={{automation_dir}}-single-stable-to-latest-latest nosetests -vs --with-xunit"
+      ignore_errors: True
