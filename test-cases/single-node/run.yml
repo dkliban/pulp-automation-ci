@@ -17,7 +17,7 @@
     - "tag_Name_{{automation_name}}_automation_runner"
   roles:
     - {role: single-inventory-config, path: "single-node-{{tested_version}}-{{automation_os}}", producer_node: single_node, consumer_node: single_node}
-    - {role: pulp-run-setup, path: "single-node{{tested_version}}-{{automation_os}}"}
+    - {role: pulp-run-setup, path: "single-node-{{tested_version}}-{{automation_os}}"}
     
 - name: Configure single node 
   hosts:
