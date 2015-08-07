@@ -16,8 +16,8 @@
           git clone https://github.com/peterlacko/pulp-automation-ci
           cd pulp-automation-ci
           ansible-playbook -i ec2.py automation-deploy.yml --extra-vars @global_vars.yml
-          #ansible-playbook -i ec2.py automation-configure.yml --extra-vars @global_vars.yml
-          #ansible-playbook -i ec2.py automation-run.yml --extra-vars @global_vars.yml
+          ansible-playbook -i ec2.py automation-configure.yml --extra-vars @global_vars.yml
+          ansible-playbook -i ec2.py automation-run.yml --extra-vars @global_vars.yml
     triggers:
       - timed: '@daily'
 
@@ -50,7 +50,6 @@
       - 'ec2-setup-automation-runner'
     version:
       - 2.6
-      - 2.7
     os:
       - rhel6
       - rhel7
