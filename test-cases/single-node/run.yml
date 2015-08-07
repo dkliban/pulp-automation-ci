@@ -5,9 +5,9 @@
     - "tag_Name_{{automation_name}}_automation_runner"
   tasks:
     - name: remove previous automation
-      file: path={{automation_dir}}-{{tested_version}}-{{automation_os}}-single-node state=absent
+      file: path={{automation_dir}}-single-node-{{tested_version}}-{{automation_os}} state=absent
     - name: checkout automation repositories
-      git: "repo=https://github.com/RedHatQE/pulp-automation dest={{automation_dir}}-{{tested_version}}-{{automation_os}}-single-node force=yes"
+      git: "repo=https://github.com/RedHatQE/pulp-automation dest={{automation_dir}}-single-node-{{tested_version}}-{{automation_os}} force=yes"
       #TODO: ugly! copy remote-remote
     - name: fetch pubkey for copying to other hosts
       fetch: src=/root/.ssh/test_rsa.pub dest=./ flat=yes
@@ -16,8 +16,8 @@
   hosts:
     - "tag_Name_{{automation_name}}_automation_runner"
   roles:
-    - {role: single-inventory-config, path: single-node, producer_node: single_node, consumer_node: single_node}
-    - {role: pulp-run-setup, path: single-node}
+  - {role: single-inventory-config, path: single-node-{{tested_version}}-{{automation_os}}, producer_node: single_node, consumer_node: single_node}
+    - {role: pulp-run-setup, path: single-node{{tested_version}}-{{automation_os}}}
     
 - name: Configure single node 
   hosts:
@@ -45,7 +45,7 @@
     - name: copy certificate file to automation runner
       command: "scp -o StrictHostKeyChecking=no -i /root/.ssh/test_rsa root@{{hostvars[groups['tag_Name_'+automation_name+'_'+tested_version|replace('.','_')+'_'+automation_os+'_single_node'][0]]['ec2_public_dns_name']}}{{':'}}/etc/pki/tls/certs/myca.crt /etc/pki/tls/certs/"
     - name: run all tests on single node
-      command: "chdir={{automation_dir}}-{{tested_version}}-{{automation_os}}-single-node nosetests --with-xunit"
+      command: "chdir={{automation_dir}}-single-node-{{tested_version}}-{{automation_os}} nosetests --with-xunit"
       ignore_errors: True
     - name: fetch file with results
-      fetch: src={{automation_dir}}-{{tested_version}}-{{automation_os}}-single-node/nosetests.xml dest=./ flat=yes
+      fetch: src={{automation_dir}}-single-node-{{tested_version}}-{{automation_os}}/nosetests.xml dest=./ flat=yes
