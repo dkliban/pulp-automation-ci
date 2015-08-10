@@ -5,9 +5,17 @@
     workspace: /var/lib/jenkins/jenkins-jobs-pulp-{version}-{os}
     display-name: 'ec2-pulp-{version}-automation-on-{os}'
     description: 'Do not edit this job through the web!'
+    wrappers:
+      - credentials-binding:
+          - file:
+              credential-id: 3cfcdb49-363b-42f3-aaaa-35f538980911
+              variable: EC2_KEY
+          - file:
+              credential-id: 52fac5e9-aeb2-4e37-889f-bce9f1891b3e
+              variable: EC2_PROPERTIES
     builders:
       - inject:
-          properties-file: /var/lib/jenkins/secrets/ec2-properties.prop
+          properties-file: $EC2_PROPERTIES
           properties-content: |
             TESTED_VERSION={version}
             EC2_PULP_OS={os}
@@ -23,6 +31,7 @@
 
 - job-template:
     name: 'ec2-setup-automation-runner'
+    displayname: 'ec2-setup-automation-runner'
     concurrent: true
     disabled: false
     workspace: /var/lib/jenkins/jenkins-jobs-automation-runner
