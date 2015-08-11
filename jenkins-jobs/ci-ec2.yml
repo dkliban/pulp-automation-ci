@@ -7,12 +7,12 @@
     description: 'Do not edit this job through the web!'
     wrappers:
       - credentials-binding:
-          - file:
-              credential-id: 3cfcdb49-363b-42f3-aaaa-35f538980911
-              variable: EC2_KEY
-          - file:
+          - zip-file:
+              credential-id: bae76e51-1edd-464c-9392-38014987ebd2
+              variable: ANSIBLE_EC2_CREDENTIALS
+         - file:
               credential-id: 52fac5e9-aeb2-4e37-889f-bce9f1891b3e
-              variable: EC2_PROPERTIES
+              variable: EC2_PROPERTIES 
     builders:
       - inject:
           properties-file: $EC2_PROPERTIES
@@ -23,6 +23,8 @@
           rm -rf pulp-automation-ci
           git clone https://github.com/peterlacko/pulp-automation-ci
           cd pulp-automation-ci
+          cv -v -R $ANSIBLE_EC2_CREDENTIALS/ansible-pulp-automation-placko.pem .
+
           ansible-playbook -i ec2.py automation-deploy.yml --extra-vars @global_vars.yml
           ansible-playbook -i ec2.py automation-configure.yml --extra-vars @global_vars.yml
           ansible-playbook -i ec2.py automation-run.yml --extra-vars @global_vars.yml
@@ -36,15 +38,25 @@
     disabled: false
     workspace: /var/lib/jenkins/jenkins-jobs-automation-runner
     description: 'Do not edit this job through the web!'
+    wrappers:
+      - credentials-binding:
+          - zip-file:
+              credential-id: bae76e51-1edd-464c-9392-38014987ebd2
+              variable: ANSIBLE_EC2_CREDENTIALS
+         - file:
+              credential-id: 52fac5e9-aeb2-4e37-889f-bce9f1891b3e
+              variable: EC2_PROPERTIES 
     builders:
       - inject:
-          properties-file: /var/lib/jenkins/secrets/ec2-properties.prop
+          properties-file: $EC2_PROPERTIES
           properties-content: |
             TESTED_VERSION={version}
             EC2_PULP_OS={os}
       - shell: |
+          sudo yum -y install python-boto
           rm -rf pulp-automation-ci
           git clone https://github.com/peterlacko/pulp-automation-ci
+          cv -v -R $ANSIBLE_EC2_CREDENTIALS/ansible-pulp-automation-placko.pem .
           cd pulp-automation-ci
           ansible-playbook -i ec2.py automation-runner-deploy.yml --extra-vars @global_vars.yml
           ansible-playbook -i ec2.py automation-runner-configure.yml --extra-vars @global_vars.yml
@@ -55,7 +67,7 @@
 - project:
     name: pulp-automation
     jobs:
-      - 'ec2-pulp-{version}-automation-on-{os}'
+      #- 'ec2-pulp-{version}-automation-on-{os}'
       - 'ec2-setup-automation-runner'
     version:
       - 2.6
