@@ -30,15 +30,15 @@ while read curline; do
 echo $curline | awk -F = '{print $1;}' | tr '.' '_' | tr '\n' '=' >> $TMPFILE2
 echo $curline | awk -F = '{print $2;}' | sed "s/'/'\"'\"'/g" | sed "s/^/\'/" | sed "s/$/\'/" >> $TMPFILE2
 done < $TMPFILE
-echo export TESTED_VERSION=$TESTED_VERSION >> $TMPFILE2
-echo export TESTED_BRANCH=$TESTED_BRANCH >> $TMPFILE2
-echo export EC2_PULP_OS=$EC2_PULP_OS >> $TMPFILE2
+echo TESTED_VERSION=$TESTED_VERSION >> $TMPFILE2
+echo TESTED_BRANCH=$TESTED_BRANCH >> $TMPFILE2
+echo EC2_PULP_OS=$EC2_PULP_OS >> $TMPFILE2
  
 while read curline; do
 echo export $curline >> $1
 done < $TMPFILE2
  
 rm -f $TMPFILE $TMPFILE2
-echo "Now run \'source $PROP_FILE\' to export variables." 
+echo "Now run 'source $1' to export variables." 
 
 chmod +x $1
