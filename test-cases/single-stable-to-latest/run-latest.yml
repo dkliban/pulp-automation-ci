@@ -51,7 +51,9 @@
   hosts:
     - "tag_Name_{{automation_name}}_automation_runner"
   tasks:
-    - name: run all tests on single node
+    - name: copy certificate file to automation runner
+      command: "scp -o StrictHostKeyChecking=no -i /root/.ssh/test_rsa root@{{hostvars[groups['tag_Name_'+automation_name+'_'+tested_version|replace('.','_')+'_'+automation_os+'_single_stable_to_latest'][0]]['ec2_public_dns_name']}}{{':'}}/etc/pki/tls/certs/myca.crt {{automation_dir}}-single-stable-to-latest-latest-{{tested_version}}-{{automation_os}}/"
+    - name: run all tests on single node - latest
       command: "chdir={{automation_dir}}-single-stable-to-latest-latest-{{tested_version}}-{{automation_os}} nosetests -vs --with-xunit --xunit-testsuite-name=results-single-stable-to-latest-latest-{{tested_version}}-{{automation_os}}"
       ignore_errors: True
       tags:
