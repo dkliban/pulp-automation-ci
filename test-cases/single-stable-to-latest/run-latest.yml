@@ -13,7 +13,7 @@
     - name: remove previous automation
       file: path={{automation_dir}}-single-stable-to-latest-latest-{{tested_version}}-{{automation_os}} state=absent
     - name: checkout automation repositories
-      git: "repo=https://github.com/RedHatQE/pulp-automation dest={{automation_dir}}-single-stable-to-latest-latest-{{tested_version}}-{{automation_os}} version=devel force=yes"
+      git: "repo=https://github.com/RedHatQE/pulp-automation dest={{automation_dir}}-single-stable-to-latest-latest-{{tested_version}}-{{automation_os}} force=yes"
 
 - name: Configure inventory
   hosts:
