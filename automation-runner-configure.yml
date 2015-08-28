@@ -24,6 +24,7 @@
         - libxslt-devel
     - pip: name=gevent state=present chdir={{automation_dir}}
     - pip: name=stitches state=present chdir={{automation_dir}}
+    - pip: name="http://svn.apache.org/repos/asf/qpid/trunk/qpid/python/" state=present
     - name: generate key for communicating with hosts
       command: "ssh-keygen -f /root/.ssh/test_rsa -N ''"
 

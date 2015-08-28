@@ -1,8 +1,5 @@
 ## Setup for local deployment via ansible
-* configure templated property file from jenkins-jobs directory
-* run localSetup.sh script which will propmt you to enter rest of configuration settings
-* source output script of previous step
-* export your AWS_SECRET_ACCESS_KEY and AWS_ACCESS_KEY_ID
+* configure templated setEnv.sh.template file and source it
 * copy your private key to .
 * **Tags:** you can specify which tasks from playbook should run by --tags resp which should be skipped by --skip-tags, supported tags for playbooks are in []
 * set up automation runner node as follows
