@@ -46,7 +46,7 @@
       command: "scp -o StrictHostKeyChecking=no -i /root/.ssh/test_rsa root@{{hostvars[groups['tag_Name_'+automation_name+'_'+tested_version|replace('.','_')+'_'+automation_os+'_single_node'][0]]['ec2_public_dns_name']}}{{':'}}/etc/pki/tls/certs/myca.crt {{automation_dir}}-single-node-{{tested_version}}-{{automation_os}}/"
     - name: run all tests on single node
       #command: "chdir={{automation_dir}}-single-node-{{tested_version}}-{{automation_os}} nosetests --with-xunit --xunit-testsuite-name=results-single-node-{{tested_version}}-{{automation_os}}"
-      command: "chdir={{automation_dir}}-single-node-{{tested_version}}-{{automation_os}} nosetests --with-html --collect-only"
+      command: "chdir={{automation_dir}}-single-node-{{tested_version}}-{{automation_os}} nosetests --with-html"
       ignore_errors: True
       tags:
         - run_automation
