@@ -51,3 +51,5 @@
         - run_automation
     - name: fetch file with results
       fetch: "src={{automation_dir}}-single-stable-to-latest-stable-{{tested_version}}-{{automation_os}}/nosetests.html dest={{inventory_dir}}/html/results-single-stable-to-latest-stable-{{tested_version}}-{{automation_os}}.html flat=yes"
+      tags:
+        - run_automation
