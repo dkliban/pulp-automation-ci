@@ -60,6 +60,6 @@
       tags:
         - run_automation
     - name: fetch file with results
-      fetch: "src={{automation_dir}}-single-stable-to-latest-latest-{{tested_version}}-{{automation_os}}/nosetests.html dest={{inventory_dir}}/html/results-single-stable-to-latest-latest-{{tested_version}}-{{automation_os}}.html flat=yes"
+      fetch: "src={{automation_dir}}-single-stable-to-latest-latest-{{tested_version}}-{{automation_os}}/nosetests.html dest={{inventory_dir}}/html/{{tested_version}}-{{automation_os}}-single-stable-to-latest-latest.html flat=yes"
       tags:
         - run_automation
