@@ -1,4 +1,4 @@
-## Setup for local deployment via ansible
+## Spin up and configure instances for pulp server via ansible
 This repository contains multiple possible configurations for setting up pulp on
 ec2 including running pulp automation and jenkins deployment.
 
