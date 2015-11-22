@@ -2,20 +2,20 @@
 # vim:ft=ansible:
 - name: Rotate logs and set package manager 
   hosts:
-    - "tag_Name_{{automation_name}}_{{tested_version|replace('.','_')}}_{{automation_os}}_single_node_beta"
+    - all
   roles:
     - logs-rotate
     - set-package-manager
 
 - name: Configure node - setup repositories 
   hosts:
-    - "tag_Name_{{automation_name}}_{{tested_version|replace('.','_')}}_{{automation_os}}_single_node_beta"
+    - all
   roles:
   - { role: repos-setup, test_stable: False, test_beta: True }
 
 - name: Configure node - install and enable pulp 
   hosts:
-    - "tag_Name_{{automation_name}}_{{tested_version|replace('.','_')}}_{{automation_os}}_single_node_beta"
+    - all
   tasks:
     - name: update all packages
       action: "{{package_manager}} state=latest name=*"
@@ -51,7 +51,7 @@
 
 - name: Configure node - install and enable pulp 
   hosts:
-    - "tag_Name_{{automation_name}}_{{tested_version|replace('.','_')}}_{{automation_os}}_single_node_beta"
+    - all
   tasks:
     # install pulp
     - name: install necessary packages
