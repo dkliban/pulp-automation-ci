@@ -1,0 +1,8 @@
+---
+# vim:ft=ansible:
+- name: Rotate logs and set package manager
+  hosts:
+    - all
+  roles:
+    - logs-rotate
+    - set-package-manager
