@@ -53,6 +53,7 @@
 - name: Configure node - install and enable pulp 
   hosts:
     - all
+  sudo: true
   tasks:
     # install pulp
     - name: install necessary packages
